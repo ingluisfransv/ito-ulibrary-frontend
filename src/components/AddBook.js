@@ -19,7 +19,7 @@ function AddBook() {
       genre,
       copies: parseInt(copies)
     };
-    axios.post('/endpoint/books/create', newBook)
+    axios.post(`${process.env.REACT_APP_API_URL}/endpoint/books/create`, newBook)
       .then(res => {
         setTitle('');
         setAuthor('');

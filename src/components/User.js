@@ -7,15 +7,17 @@ function User() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/endpoint/users/create", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/endpoint/users/create`, {
         first_name: firstName,
         last_name: lastName,
         email: email,
         role: role || "student",
+        password: password,
       });
       console.log(response.data);
       // optionally display success message or redirect to another page
@@ -50,6 +52,14 @@ function User() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </label>
         <label>

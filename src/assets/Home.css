@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 80vh;
   }
   
   h1 {
@@ -16,6 +16,14 @@
     margin-top: 1rem;
   }
   
+  .card-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .card {
+    margin-right: 10px;
+  } 
 
 .card {
     border: 1px solid #ccc;

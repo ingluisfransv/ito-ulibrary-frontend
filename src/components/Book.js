@@ -10,7 +10,7 @@ function Book() {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   useEffect(() => {
-    axios.get('/endpoint/books')
+    axios.get(`${process.env.REACT_APP_API_URL}/endpoint/books`)
       .then(res => {
         setBooks(res.data);
       })
@@ -38,9 +38,9 @@ function Book() {
       copies: selectedBook.copies - 1
     };
     axios
-      .put(`/endpoint/books/checkout/${bookId}`, updatedBook)
+      .put(`${process.env.REACT_APP_API_URL}/endpoint/books/checkout/${bookId}`, updatedBook)
       .then(res => {
-        axios.get('/endpoint/books').then(res => {
+        axios.get(`${process.env.REACT_APP_API_URL}/endpoint/books`).then(res => {
           setBooks(res.data);
         });
       })
