@@ -59,3 +59,58 @@ table {
 .popup-content button:hover {
   background-color: #3e8e41;
 }
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.form-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-input input {
+  height: 30px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-input select {
+  height: 36px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-submit {
+  margin-top: 20px;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.filter-form label,
+.filter-form input {
+  margin: 0 10px 10px 0;
+}
+
+.popup-content button {
+  margin-right: 1em;
+}

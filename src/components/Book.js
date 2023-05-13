@@ -6,6 +6,8 @@ function Book() {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [checkoutBooks, setCheckoutBooks] = useState([]);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   useEffect(() => {
     axios.get('/endpoint/books')
@@ -24,6 +26,46 @@ function Book() {
   const handleClosePopup = () => {
     setShowPopup(false);
   }
+
+  const handleCheckout = () => {
+    if (!selectedBook) {
+      return;
+    }
+    console.log(selectedBook);
+    const bookId = selectedBook._id;
+    const updatedBook = {
+      ...selectedBook,
+      copies: selectedBook.copies - 1
+    };
+    axios
+      .put(`/endpoint/books/checkout/${bookId}`, updatedBook)
+      .then(res => {
+        axios.get('/endpoint/books').then(res => {
+          setBooks(res.data);
+        });
+      })
+      .catch(err => console.log(err));
+    setSelectedBook(updatedBook);
+    setCheckoutBooks(prevCheckoutBooks => {
+      const bookIndex = prevCheckoutBooks.findIndex(
+        book => book._id === updatedBook._id
+      );
+      if (bookIndex >= 0) {
+        // Replace existing book with updated version
+        const newCheckoutBooks = [...prevCheckoutBooks];
+        newCheckoutBooks.splice(bookIndex, 1, updatedBook);
+        return newCheckoutBooks;
+      } else {
+        // Add new book to checkout list
+        return [...prevCheckoutBooks, updatedBook];
+      }
+    });
+    setIsCheckingOut(true);
+  };
+  
+  
+  
+  
 
   return (
     <div>
@@ -61,10 +103,21 @@ function Book() {
             <p>Published Year: {selectedBook.published_year}</p>
             <p>Genre: {selectedBook.genre}</p>
             <p>Copies: {selectedBook.copies}</p>
+            {selectedBook.copies > 0 ? (
+              <button onClick={handleCheckout} disabled={isCheckingOut}>Check Out</button>
+            ) : (
+              <p>Out of Stock</p>
+            )}
             <button onClick={handleClosePopup}>Close</button>
           </div>
         </div>
       )}
+      <h3>Checked Out Books</h3>
+      <ul>
+        {checkoutBooks.map(book => (
+          <li key={book._id}>{book.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }

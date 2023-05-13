@@ -13,6 +13,10 @@ function Home() {
         <h2>Books</h2>
         <Link to="/books">See all books</Link>
       </div>
+      <div className="card">
+        <h2>Add a new Book</h2>
+        <Link to="/books/add">Go to form</Link>
+      </div>
     </div>
   );
 }
